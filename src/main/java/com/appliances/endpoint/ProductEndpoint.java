@@ -7,6 +7,7 @@ import com.appliances.repository.ProductRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
@@ -15,6 +16,7 @@ import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 @Endpoint
 @RequiredArgsConstructor
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
+@Slf4j
 public class ProductEndpoint {
 
     private static final String NAMESPACE = "http://appliances.org/products";
@@ -44,6 +46,7 @@ public class ProductEndpoint {
     @PayloadRoot(namespace = NAMESPACE, localPart = "createProductRequest")
     @ResponsePayload
     public CreatedIdResponse create(@RequestPayload CreateProductRequest request) {
+        log.info("Creating new product...");
         int id = repository.create(request.getProduct());
         return new CreatedIdResponse(id);
     }
