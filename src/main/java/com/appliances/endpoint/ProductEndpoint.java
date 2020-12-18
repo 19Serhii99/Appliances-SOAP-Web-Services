@@ -48,7 +48,6 @@ public class ProductEndpoint {
     public CreatedIdResponse create(@RequestPayload CreateProductRequest request) {
         log.info("Creating new product...");
         int id = repository.create(request.getProduct());
-        log.info("Product has been created");
         return new CreatedIdResponse(id);
     }
 
